@@ -9,6 +9,7 @@ import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import com.desafio.klab.entity.Jogador;
 import com.desafio.klab.entity.Jogo;
 import com.desafio.klab.entity.repository.JogadorRepository;
 import com.desafio.klab.entity.repository.JogoRepository;
+import com.desafio.klab.entity.service.exception.ObjectnotFoundException;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -30,8 +32,8 @@ public class JogoService
 
    private static final int QUANTIDADE_JOGADOR = 4;
 
-   private static final int QUANTIDADE_CARTAS =  5;
-   
+   private static final int QUANTIDADE_CARTAS = 5;
+
    @Autowired
    private JogadorRepository jogadorRepository;
 
@@ -217,11 +219,22 @@ public class JogoService
          return valor;
       }
    }
-   
-   public Jogo salvar(Jogo jogo) {
+
+   public Jogo salvar(Jogo jogo)
+   {
       jogadorRepository.saveAll(jogo.getJogadores());
       return jogoRepository.save(jogo);
-  }
+   }
 
+   public Jogo buscarJogoPorId(Long id)
+   {
+      Optional<Jogo> obj = jogoRepository.findById(id);
+      return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado! Id: " + id));
+   }
+
+   public List<Jogo> buscarTodos()
+   {
+      return jogoRepository.findAll();
+   }
 
 }
