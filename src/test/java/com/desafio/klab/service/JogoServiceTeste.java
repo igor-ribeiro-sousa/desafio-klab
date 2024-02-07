@@ -117,5 +117,19 @@ public class JogoServiceTeste
 
        assertTrue(resultado.contains("Vencedor") || resultado.contains("Empate"));
    }
+   
+   @Test
+   public void testCalcularSomatoriaJogador() {
+       int soma = jogoService.calcularSomatoriaJogador("1,2,3,4,5");
+       assertEquals(15, soma);
+   }
+   
+   @Test
+   public void testSubstituirValoresCartas() {
+       Jogador jogador = Jogador.builder().cartas("1,11,12,13,5").build();
+       List<Jogador> jogadores = jogoService.substituirValoresCartas(Arrays.asList(jogador));
+
+       assertEquals("A,J,Q,K,5", jogadores.get(0).getCartas());
+   }
 
 }

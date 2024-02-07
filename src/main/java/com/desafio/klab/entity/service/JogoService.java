@@ -11,11 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.desafio.klab.entity.Carta;
 import com.desafio.klab.entity.Jogador;
 import com.desafio.klab.entity.Jogo;
+import com.desafio.klab.entity.repository.JogadorRepository;
+import com.desafio.klab.entity.repository.JogoRepository;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -27,14 +30,22 @@ public class JogoService
 
    private static final int QUANTIDADE_JOGADOR = 4;
 
-   private static final int QUANTIDADE_CARTAS = 5;
+   private static final int QUANTIDADE_CARTAS =  5;
+   
+   @Autowired
+   private JogadorRepository jogadorRepository;
+
+   @Autowired
+   private JogoRepository jogoRepository;
 
    public Jogo jogar()
    {
       List<Carta> baralho = obterCartasDoBaralho();
       List<Jogador> jogadores = distribuirCartas(baralho);
       String resultado = decidirResultado(jogadores);
-      return null;
+      jogadores = substituirValoresCartas(jogadores);
+      Jogo jogo = Jogo.builder().jogadores(jogadores).resultado(resultado).build();
+      return salvar(jogo);
    }
 
    public List<Carta> obterCartasDoBaralho()
@@ -156,15 +167,61 @@ public class JogoService
 
       return resultado.toString();
    }
-   
-   public int calcularSomatoriaJogador(String cartasString) {
+
+   public int calcularSomatoriaJogador(String cartasString)
+   {
       String[] cartas = cartasString.split(",");
       int somatoria = 0;
-
-      for (String carta : cartas) {
-          somatoria += Integer.parseInt(carta);
+      for (String carta : cartas)
+      {
+         somatoria += Integer.parseInt(carta);
       }
       return somatoria;
+   }
+
+   public List<Jogador> substituirValoresCartas(List<Jogador> jogadores)
+   {
+      List<Jogador> jogadoresModificados = new ArrayList<>();
+
+      for (Jogador jogador : jogadores)
+      {
+         String[] cartas = jogador.getCartas().split(",");
+
+         for (int i = 0; i < cartas.length; i++)
+         {
+            String valorOriginal = cartas[i];
+            String valorSubstituido = substituirValorCarta(valorOriginal);
+            cartas[i] = valorSubstituido;
+         }
+
+         String novaCartasString = String.join(",", cartas);
+         Jogador jogadorModificado = Jogador.builder().cartas(novaCartasString).build();
+         jogadoresModificados.add(jogadorModificado);
+      }
+      return jogadoresModificados;
+   }
+
+   public String substituirValorCarta(String valor)
+   {
+      switch (valor)
+      {
+      case "1":
+         return "A";
+      case "13":
+         return "K";
+      case "12":
+         return "Q";
+      case "11":
+         return "J";
+      default:
+         return valor;
+      }
+   }
+   
+   public Jogo salvar(Jogo jogo) {
+      jogadorRepository.saveAll(jogo.getJogadores());
+      return jogoRepository.save(jogo);
   }
+
 
 }
