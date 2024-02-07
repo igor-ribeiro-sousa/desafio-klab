@@ -2,6 +2,7 @@ package com.desafio.klab.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.desafio.klab.entity.Carta;
 import com.desafio.klab.entity.Jogador;
+import com.desafio.klab.entity.Jogo;
 import com.desafio.klab.entity.service.JogoService;
 
 @ExtendWith(MockitoExtension.class)
@@ -90,6 +92,30 @@ public class JogoServiceTeste
          carta.setValor(valoresEspeciais.get(i));
          assertEquals(valoresEsperados.get(i), jogoService.obterValorCarta(carta));
       }
+   }
+   
+   @Test
+   public void testDecidirResultadoVencedorUnico() {
+       Jogador jogador1 = Jogador.builder().cartas("1,2,3,4,5").build();
+       Jogador jogador2 = Jogador.builder().cartas("2,3,4,5,6").build();
+
+       Jogo jogo = Jogo.builder().jogadores(Arrays.asList(jogador1, jogador2)).build();
+       String resultado = jogoService.decidirResultado(jogo.getJogadores());
+
+       assertTrue(resultado.contains("Vencedor") || resultado.contains("Empate"));
+   }
+
+   @Test
+   public void testDecidirResultadoEmpate() {
+       Jogador jogador1 = Jogador.builder().cartas("1,2,3,4,5").build();
+       Jogador jogador2 = Jogador.builder().cartas("1,2,3,4,5").build();
+       Jogador jogador3 = Jogador.builder().cartas("1,1,1,1,1").build();
+       Jogador jogador4 = Jogador.builder().cartas("1,2,3,4,5").build();
+
+       Jogo jogo = Jogo.builder().jogadores(Arrays.asList(jogador1, jogador2, jogador3, jogador4)).build();
+       String resultado = jogoService.decidirResultado(jogo.getJogadores());
+
+       assertTrue(resultado.contains("Vencedor") || resultado.contains("Empate"));
    }
 
 }

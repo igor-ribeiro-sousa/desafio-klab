@@ -33,6 +33,7 @@ public class JogoService
    {
       List<Carta> baralho = obterCartasDoBaralho();
       List<Jogador> jogadores = distribuirCartas(baralho);
+      String resultado = decidirResultado(jogadores);
       return null;
    }
 
@@ -117,5 +118,53 @@ public class JogoService
          return Integer.parseInt(carta.getValor());
       }
    }
+
+   public String decidirResultado(List<Jogador> jogadores)
+   {
+      int maiorPontuacao = Integer.MIN_VALUE;
+      List<Integer> vencedores = new ArrayList<>();
+
+      for (int i = 0; i < jogadores.size(); i++)
+      {
+         Jogador jogador = jogadores.get(i);
+         int pontuacao = calcularSomatoriaJogador(jogador.getCartas());
+
+         if (pontuacao > maiorPontuacao)
+         {
+            maiorPontuacao = pontuacao;
+            vencedores.clear();
+            vencedores.add(i + 1);
+         }
+         else if (pontuacao == maiorPontuacao)
+         {
+            vencedores.add(i + 1);
+         }
+      }
+      StringBuilder resultado = new StringBuilder();
+      if (vencedores.size() == 1)
+      {
+         resultado.append("Vencedor é Jogador ").append(vencedores.get(0)).append(" com ").append(maiorPontuacao).append(" pontos");
+      }
+      else if (vencedores.size() == jogadores.size())
+      {
+         resultado.append("Empate entre todos os jogadores com ").append(maiorPontuacao).append(" pontos");
+      }
+      else
+      {
+         resultado.append("Empate entre os Jogadores ").append(vencedores).append(" com ").append(maiorPontuacao).append(" pontos");
+      }
+
+      return resultado.toString();
+   }
+   
+   public int calcularSomatoriaJogador(String cartasString) {
+      String[] cartas = cartasString.split(",");
+      int somatoria = 0;
+
+      for (String carta : cartas) {
+          somatoria += Integer.parseInt(carta);
+      }
+      return somatoria;
+  }
 
 }
