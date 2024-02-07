@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.desafio.klab.entity.Carta;
+import com.desafio.klab.entity.Jogador;
 import com.desafio.klab.entity.Jogo;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -24,9 +25,14 @@ import com.google.gson.JsonObject;
 public class JogoService
 {
 
+   private static final int QUANTIDADE_JOGADOR = 4;
+
+   private static final int QUANTIDADE_CARTAS = 5;
+
    public Jogo jogar()
    {
       List<Carta> baralho = obterCartasDoBaralho();
+      List<Jogador> jogadores = distribuirCartas(baralho);
       return null;
    }
 
@@ -72,6 +78,44 @@ public class JogoService
          cartas.add(carta);
       }
       return cartas;
+   }
+
+   public List<Jogador> distribuirCartas(List<Carta> baralho)
+   {
+      List<Jogador> jogadores = new ArrayList<>();
+
+      for (int i = 0; i < QUANTIDADE_JOGADOR; i++)
+      {
+         List<Carta> mao = new ArrayList<>();
+
+         for (int j = 0; j < QUANTIDADE_CARTAS; j++)
+         {
+            mao.add(baralho.remove(0));
+         }
+
+         String cartasString = mao.stream().map(carta -> String.valueOf(obterValorCarta(carta))).collect(Collectors.joining(","));
+         Jogador jogador = Jogador.builder().cartas(cartasString).build();
+         jogadores.add(jogador);
+      }
+
+      return jogadores;
+   }
+
+   public int obterValorCarta(Carta carta)
+   {
+      switch (carta.getValor())
+      {
+      case "ACE":
+         return 1;
+      case "KING":
+         return 13;
+      case "QUEEN":
+         return 12;
+      case "JACK":
+         return 11;
+      default:
+         return Integer.parseInt(carta.getValor());
+      }
    }
 
 }

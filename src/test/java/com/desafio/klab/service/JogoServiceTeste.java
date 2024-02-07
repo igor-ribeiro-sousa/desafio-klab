@@ -1,8 +1,11 @@
 package com.desafio.klab.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -11,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.desafio.klab.entity.Carta;
+import com.desafio.klab.entity.Jogador;
 import com.desafio.klab.entity.service.JogoService;
 
 @ExtendWith(MockitoExtension.class)
@@ -39,6 +43,53 @@ public class JogoServiceTeste
       assertEquals("A", cartas.get(0).getValor());
       assertEquals("2", cartas.get(1).getValor());
       assertEquals("3", cartas.get(2).getValor());
+   }
+
+   @Test
+   public void testDistribuirCartas()
+   {
+      JogoService jogoService = new JogoService();
+      List<Carta> baralho = criarBaralhoDeTeste();
+      List<Jogador> jogadores = jogoService.distribuirCartas(baralho);
+
+      assertNotNull(jogadores);
+      assertEquals(4, jogadores.size());
+
+      for (Jogador jogador : jogadores)
+      {
+         assertNotNull(jogador.getCartas());
+         String[] cartas = jogador.getCartas().split(",");
+         assertEquals(5, cartas.length);
+      }
+   }
+
+   private List<Carta> criarBaralhoDeTeste()
+   {
+      int quantidadeDeCartasDoBaralho = 52;
+      List<Carta> baralho = new ArrayList<>();
+      for (int i = 0; i < quantidadeDeCartasDoBaralho; i++)
+      {
+         Carta carta = new Carta();
+         carta.setValor(String.valueOf(i));
+         baralho.add(carta);
+      }
+      return baralho;
+   }
+
+   @Test
+   public void testObterValorCartaEspecial()
+   {
+      JogoService jogoService = new JogoService();
+
+      List<String> valoresEspeciais  = Arrays.asList("ACE", "KING", "QUEEN", "JACK", "5");
+      List<Integer> valoresEsperados = Arrays.asList(1, 13, 12, 11, 5);
+
+      for (int i = 0; i < valoresEspeciais.size(); i++)
+      {
+         Carta carta = new Carta();
+         carta.setValor(valoresEspeciais.get(i));
+         assertEquals(valoresEsperados.get(i), jogoService.obterValorCarta(carta));
+      }
    }
 
 }
