@@ -1,0 +1,69 @@
+{
+	"info": {
+		"_postman_id": "c3fe677e-0e32-43d6-8dce-a4b78e83a44f",
+		"name": "API-Desafio-BackEnd",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24923216"
+	},
+	"item": [
+		{
+			"name": "INICIAR JOGO",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/jogo/iniciar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"jogo",
+						"iniciar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BUSCAR POR ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/jogo/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"jogo",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BUSCAR TODOS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/jogo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"jogo"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
