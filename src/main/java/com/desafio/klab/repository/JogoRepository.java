@@ -1,4 +1,4 @@
-package com.desafio.klab.entity.repository;
+package com.desafio.klab.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -1,4 +1,4 @@
-package com.desafio.klab.entity.controller;
+package com.desafio.klab.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.desafio.klab.entity.Jogo;
 import com.desafio.klab.entity.DTO.JogoDTO;
-import com.desafio.klab.entity.service.JogoService;
+import com.desafio.klab.service.JogoService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -39,10 +39,8 @@ public class JogoController
    }
 
    @Operation(summary = "Buscar um jogo pelo ID")
-   @ApiResponses(value = {
-       @ApiResponse(responseCode = "200", description = "Jogo encontrado"),
-       @ApiResponse(responseCode = "404", description = "Jogo não encontrado")
-   })
+   @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Jogo encontrado"),
+   @ApiResponse(responseCode = "404", description = "Jogo não encontrado") })
    @GetMapping("/{id}")
    public ResponseEntity<JogoDTO> buscarPorId(@PathVariable Long id)
    {

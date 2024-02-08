@@ -1,4 +1,4 @@
-package com.desafio.klab.entity.service.exception;
+package com.desafio.klab.service.exception;
 
 public class ObjectnotFoundException extends RuntimeException
 {

@@ -22,9 +22,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.desafio.klab.entity.Carta;
 import com.desafio.klab.entity.Jogador;
 import com.desafio.klab.entity.Jogo;
-import com.desafio.klab.entity.repository.JogadorRepository;
-import com.desafio.klab.entity.repository.JogoRepository;
-import com.desafio.klab.entity.service.JogoService;
+import com.desafio.klab.repository.JogadorRepository;
+import com.desafio.klab.repository.JogoRepository;
+import com.desafio.klab.service.JogoService;
 
 @ExtendWith(MockitoExtension.class)
 public class JogoServiceTeste

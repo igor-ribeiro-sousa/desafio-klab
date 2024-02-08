@@ -1,4 +1,4 @@
-package com.desafio.klab.entity.controller.exceptions;
+package com.desafio.klab.controller.exceptions;
 
 import java.io.Serializable;
 

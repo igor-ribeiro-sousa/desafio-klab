@@ -1,11 +1,11 @@
-package com.desafio.klab.entity.controller.exceptions;
+package com.desafio.klab.controller.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.desafio.klab.entity.service.exception.ObjectnotFoundException;
+import com.desafio.klab.service.exception.ObjectnotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
 

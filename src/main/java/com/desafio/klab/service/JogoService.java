@@ -1,4 +1,4 @@
-package com.desafio.klab.entity.service;
+package com.desafio.klab.service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,9 +18,9 @@ import org.springframework.stereotype.Service;
 import com.desafio.klab.entity.Carta;
 import com.desafio.klab.entity.Jogador;
 import com.desafio.klab.entity.Jogo;
-import com.desafio.klab.entity.repository.JogadorRepository;
-import com.desafio.klab.entity.repository.JogoRepository;
-import com.desafio.klab.entity.service.exception.ObjectnotFoundException;
+import com.desafio.klab.repository.JogadorRepository;
+import com.desafio.klab.repository.JogoRepository;
+import com.desafio.klab.service.exception.ObjectnotFoundException;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
