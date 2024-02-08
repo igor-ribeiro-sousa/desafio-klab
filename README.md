@@ -22,7 +22,7 @@ Vencedor: Jogador 2 com 55 pontos
 
 ## Documentação da API
 
-A documentação completa da API pode ser encontrada [aqui](http://localhost:8081/swagger-ui/index.html#/).
+A documentação completa da API pode ser encontrada no [Swagger-UI](http://localhost:8081/swagger-ui/index.html#/), uma vez que tenha sido iniciada.
 
 # Como Executar o Projeto
 
@@ -55,6 +55,6 @@ Este projeto já está previamente configurado para utilizar o PostgreSQL como b
 ## Autor
 Antonio Igor Ribeiro de Sousa
 
-LinkedIn: [Clique aqui!](https://www.linkedin.com/in/igor-ribeiro-sousa/)
+[LinkedIn](https://www.linkedin.com/in/igor-ribeiro-sousa/)
 
-GitHub: [Clique aqui!](https://github.com/igor-ribeiro-sousa)
+[GitHub](https://github.com/igor-ribeiro-sousa)
